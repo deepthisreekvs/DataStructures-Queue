@@ -1,0 +1,79 @@
+#we should have to find the minimum number of moves to reduce N to zero using the constraints given
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'downToZero' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER n as parameter.
+#
+
+def downToZero(n):
+    # Write your code here
+    a = n
+    list5=[]
+    def func1(a):
+        list1=[]
+        list2=[]
+        for i in range(a-1,1,-1):
+            if a%i==0:
+                b=[i]+[a//i]
+                b = sorted(b)
+                if b not in list1:
+                    list1.append(b)
+        if len(list1) != 0:
+            for j in list1:
+                m = max(j)
+                list2.append(m)
+            d = min(list2)
+            return d
+        else:
+            return a-1
+    
+    while True:
+        z = func1(a)
+        list5.append(z)
+        if z == 0:
+            break
+        elif z == -1:
+            list5=[]
+            break
+        else:
+            a = list5[-1]
+            continue
+    return len(list5)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(input().strip())
+
+    for q_itr in range(q):
+        n = int(input().strip())
+
+        result = downToZero(n)
+
+        fptr.write(str(result) + '\n')
+
+    fptr.close()
+
+#Explanation:
+
+#The main function downToZero takes an integer n as input and initializes some variables, including an empty list list5 to store results.
+
+#The nested function func1(a) is defined to find factors of a and return the minimum of the maximum values of these factors. If there are no factors, it returns a-1.
+
+#The main loop continues until z becomes 0. In each iteration, it calculates z using func1(a), appends it to list5, and updates the value of a with the latest value in list5.
+
+#The loop breaks when z becomes 0. If z is -1 at any point, it resets list5 and breaks the loop.
+
+#The function finally returns the length of list5, which represents the number of steps taken to reach 0.
+
+#The code uses a recursive approach to find factors and gradually reduces the input n to 0 based on certain conditions. The logic seems to be focused on finding factors and minimizing the value in each step.
