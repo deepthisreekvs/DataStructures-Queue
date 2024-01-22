@@ -77,3 +77,67 @@ if __name__ == '__main__':
 #The function finally returns the length of list5, which represents the number of steps taken to reach 0.
 
 #The code uses a recursive approach to find factors and gradually reduces the input n to 0 based on certain conditions. The logic seems to be focused on finding factors and minimizing the value in each step.
+
+----------------  it passes only 2 test cases ---------------------------
+
+-------------- below code passes the all test cases --------------------------------
+
+import sys
+
+# Function to generate the sieve of Eratosthenes
+def generate_sieve():
+    # Set the limit to 10^6 + 1
+    limit = pow(10, 6) + 1
+    
+    # Initialize the sieve with default values
+    sieve = [-1] * limit
+    
+    # Set initial values for 0, 1, 2, and 3
+    sieve[0], sieve[1], sieve[2], sieve[3] = 0, 1, 2, 3
+
+    # Iterate over the range of numbers up to the limit
+    for iind in range(limit):
+        # If the current value in the sieve is not initialized or greater than the previous value + 1,
+        # set it to the previous value + 1
+        if sieve[iind] == -1 or sieve[iind] > sieve[iind - 1] + 1:
+            sieve[iind] = sieve[iind - 1] + 1
+            
+        # Initialize jind to 1
+        jind = 1
+        
+        # Update the sieve values for multiples of the current index (iind)
+        while jind <= iind and jind * iind < limit:
+            # If the sieve value at the multiple position is not initialized or greater than the current value + 1,
+            # set it to the current value + 1
+            if sieve[jind * iind] == -1 or sieve[jind * iind] > sieve[iind] + 1:
+                sieve[jind * iind] = sieve[iind] + 1
+            jind += 1
+    
+    return sieve
+
+# Entry point of the program
+if __name__ == "__main__":
+    # Read the number of queries
+    Q = int(input().strip())
+    
+    # Generate the sieve
+    sieve = generate_sieve()
+
+    # Process each query
+    for a0 in range(Q):
+        # Read the value N for the current query
+        N = int(input().strip())
+        
+        # Print the result from the precomputed sieve
+        print(sieve[N])
+
+
+#Explanation:
+
+#The generate_sieve function generates the sieve of Eratosthenes up to a specified limit (10^6 + 1 in this case).
+
+#The sieve is represented by a list named sieve, where each index corresponds to a number, and the value at that index represents the minimum number of steps to reduce that number to 1.
+
+#The main loop iterates over the range of queries (Q), and for each query, it reads the input value N and prints the precomputed result from the sieve.
+
+#The code efficiently precomputes and stores the minimum number of steps to reduce each number to 1 using the sieve of Eratosthenes.
